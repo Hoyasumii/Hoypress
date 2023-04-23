@@ -6,7 +6,33 @@ const Category = require('../model/Category');
 const Slugify = require('slugify');
 
 router.get('/', (req, res) => {
-    res.send('Articles');
+
+    let categories = Category.findAll({ raw: true });
+    let articles = Article.findAll({ 
+        raw: true,
+        include: [{ model: Category }] // Estou carregando todos os artigos do banco de dados. Aqui eu não vou querer usar, pois eu quero carregar as categorias relacionadas com os artigos dentro do roteamento e não na renderização da view
+     })
+
+    Promise.all([articles, categories]).then(results => {
+        results[0].forEach(article => { // Aqui eu estou percorrendo todos os artigos
+            article.category = results[1].find(category => { // Aqui eu estou procurando o objeto da categoria que está relacionada com o artigo
+                return category.id == article.categoryId;
+            }).title; // Aqui, eu estou retornando o nome da categoria
+        });
+
+        res.render('articles/index', {
+            data: results[0].reduce((acc, article) => {
+                acc.push({
+                    id: article.id,
+                    title: article.title,
+                    slug: article.slug,
+                    category: article.category
+                });
+                return acc;
+            }, [])
+        });
+
+    });
 })
 
 router.get('/new', (req, res) => {
@@ -19,5 +45,44 @@ router.get('/new', (req, res) => {
         });
     });
 });
+
+router.post('/save', (req, res) => {
+    let title = req.body.title;
+    let body = req.body.body;
+    let category = req.body.category;
+
+    Article.create({
+        title: title,
+        slug: Slugify(title),
+        body: body,
+        categoryId: category
+    }).then(() => {
+        res.redirect('/articles');
+    });
+});
+
+router.get('/read/:slug', (req, res) => {
+    let slug = req.params.slug;
+    
+    Article.findOne({
+        where: { slug },
+        raw: true
+    }).then((data) => {
+        res.render('articles/read', {
+            data
+        })
+    })
+});
+
+router.post('/delete', (req, res) => {
+    let id = req.body.id;
+
+    Article.destroy({
+        where: { id }
+    }).then(() => {
+        res.redirect('/articles');
+    });
+    
+})
 
 module.exports = router;

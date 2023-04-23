@@ -12,19 +12,33 @@
                 <br>
                 <label for="article-category" class="mb-1">Selecione a categoria do artigo</label>
                 <select class="form-select" id="article-category" name="category">
-                    <option value="0" selected hidden > Escolha a categoria </option>
+                    <option value="0" selected hidden > Escolha a categoria </option> <!-- TODO: Criar um validador para o usuário não poder enviar os dados com a categoria igual a "Escolha a categoria" -->
                     <% data.forEach((item) => { %>
                         <option value="<%= item.id %>"><%= item.title %></option>
                     <% }); %>
                 </select>
                 <br>
-                <label for="article-content" class="mb-1">Escreva o conteúdo do artigo</label>
-                <textarea class="form-control" id="article-content" name="content" rows="3"></textarea>
+                <textarea class="form-control" id="article-content" name="body" rows="3"></textarea>
                 <br>
                 <button class="btn btn-primary">Cadastrar</button>
             </form>
         </div>
     </div>
 </div>
+
+<script src="https://cdn.tiny.cloud/1/kg4shk3wxv7rufjhoxh9tdvsl4jq4b2a4ha04tfnllos0zsz/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: '#article-content',
+        language: 'pt_BR',
+        icons: 'bootstrap',
+        skin: 'oxide-dark',
+        content_css: 'tinymce-5-dark',
+        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags typography inlinecss',
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+        tinycomments_mode: 'embedded',
+        tinycomments_author: 'Author name'
+    });
+</script>
 
 <%- include("../partials/footer.ejs") %>

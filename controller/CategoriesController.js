@@ -6,7 +6,7 @@ const Slugify = require('slugify');
 
 router.get('/', (req, res) => {
     Category.findAll({ raw: true }).then(categories => {
-        res.render('categories/show', {
+        res.render('categories/index', {
 
             data: categories.reduce((acc, category) => { // Aqui eu estou usando o reduce para transformar o array de objetos em um array de objetos com apenas os atributos que eu quero
                 acc.push({

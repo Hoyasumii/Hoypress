@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 
+// TODO: Quando eu terminar de desenvolver esse projeto, colocar o Sequelize para usar o sqlite ao invés do mysql
+
 const connection = require('./database');
 connection.authenticate()
     .then(() => console.log("Connection has been established successfully!"))
