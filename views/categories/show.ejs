@@ -1,0 +1,66 @@
+<%- include("../partials/header") %>
+
+<div class="container">
+
+    <hr>
+    <div class="d-flex align-items-center justify-content-between">
+        <h1 class="display-6">Categorias</h1>
+        <a class="btn btn-primary" aria-current="page" href="/categories/new">Criar Categoria</a>
+    </div>
+    <hr>
+
+    <% if(data.length === 0) { %>
+        <div class="alert alert-warning" role="alert">
+            Nenhuma categoria cadastrada!
+        </div>
+    <% } else { %>
+        <table class="table table-bordered table-hover shadow">
+            <thead class="bg-body-tertiary">
+                <tr>
+                    <% Object.keys(data[0]).forEach((item) => { %>
+                        <th scope="col"><%= item %></th>
+                    <% }); %>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% data.forEach((item) => { %>
+                    <tr>
+                        <% Object.values(item).forEach((value) => { %>
+                            <td><%= value %></td>
+                        <% }); %>
+                        <td class="d-flex gap-1">
+                            <a href="/" class="btn btn-success">Ver</a> <!-- TODO: Implementar essa funcionalidade para ver todos os artigos que possuem essa categoria -->
+                            <a href="/categories/edit/<%= item.id %>" class="btn btn-warning">Editar</a>
+                            <button class="btn btn-danger delete-button" data-bs-toggle="modal" data-bs-target="#confirm-delete-modal" data-id="<%= item.id %>">Deletar</button>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    <% } %>
+
+    
+</div>
+
+<div class="modal fade" id="confirm-delete-modal" tabindex="-1" aria-labelledby="confirm-delete-modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="confirm-delete-modal">Deseja remover o item?</h1>
+            </div>
+            <div class="modal-body">
+                <p>Deletando essa categoria, você também irá deletar todos os artigos que possuem essa categoria.</p>
+                <strong>Esta ação não pode ser desfeita.</strong>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <form action="/categories/delete" method="post">
+                    <input type="hidden" id="delete-id" name="id" value="">
+                    <button type="submit" class="btn btn-danger" id="confirm-delete-button">Deletar</button>
+                </form>
+        </div>
+    </div>
+</div>
+
+<%- include("../partials/footer") %>

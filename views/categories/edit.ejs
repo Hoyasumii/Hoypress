@@ -1,0 +1,23 @@
+<%- include('../partials/header.ejs') %>
+
+<div class="container">
+    <div class="card shadow">
+        <div class="card-header">
+            <h3 class="card-title m-0">
+                Editar categoria
+            </h3>
+        </div>
+        <div class="card-body">
+            <form action="/categories/update" method="post"> <!-- TODO: Adicionar a rota para atualização -->
+                <input type="hidden" name="id" value="<%= data.id %>">
+                <label for="category-name" class="mb-1">Defina o título da categoria</label>
+                <input type="text" class="form-control" autocomplete="none" id="category-name" name="title" placeholder="Ficção, Relatos sobrenaturais, Pensamentos, ..." value="<%= data.title %>">
+                <br>
+                <button class="btn btn-primary">Atualizar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<%- include('../partials/footer.ejs') %>

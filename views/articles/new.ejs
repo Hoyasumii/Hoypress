@@ -1,0 +1,30 @@
+<%- include("../partials/header.ejs") %>
+
+<div class="container">
+    <div class="card shadow">
+        <div class="card-header">
+            <h3 class="card-title m-0">Cadastrar novo artigo</h3>
+        </div>
+        <div class="card-body">
+            <form action="/articles/save" method="post">
+                <label for="article-title" class="mb-1">Defina o título do artigo</label>
+                <input type="text" class="form-control" autocomplete="none" id="article-title" name="title" placeholder="Título do artigo">
+                <br>
+                <label for="article-category" class="mb-1">Selecione a categoria do artigo</label>
+                <select class="form-select" id="article-category" name="category">
+                    <option value="0" selected hidden > Escolha a categoria </option>
+                    <% data.forEach((item) => { %>
+                        <option value="<%= item.id %>"><%= item.title %></option>
+                    <% }); %>
+                </select>
+                <br>
+                <label for="article-content" class="mb-1">Escreva o conteúdo do artigo</label>
+                <textarea class="form-control" id="article-content" name="content" rows="3"></textarea>
+                <br>
+                <button class="btn btn-primary">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include("../partials/footer.ejs") %>
