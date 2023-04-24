@@ -20,6 +20,10 @@ router.get('/', (req, res) => {
     });
 });
 
+router.get('/:slug', (req, res) => {
+    res.send('Rota para exibir os artigos de uma categoria específica')
+}) // TODO: Vou criar a rotas para exibir os artigos de uma categoria específica depois
+
 router.get('/new', (req, res) => {
     res.render('categories/new');
 });
@@ -33,7 +37,7 @@ router.post('/save', (req, res) => {
 
     Category.create({
         title: title,
-        slug: Slugify(title)
+        slug: Slugify(title).toLowerCase()
     }).then(() => {
         res.redirect('/categories');
     });

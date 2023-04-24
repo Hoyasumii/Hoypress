@@ -2,11 +2,12 @@
 
 <div class="container">
 
-    <div class="d-flex align-items-center justify-content-between">
+    <div class="bg-body-tertiary p-5 rounded shadow mb-3">
         <h1 class="display-6"><%= data.title %></h1>
+        <a href="/categories/<%= data.category.slug %>" class="text-body link-underline link-underline-secondary link-underline-opacity-0 link-underline-opacity-100-hover"><strong><%= data.category.title %></strong></a>
     </div>
-    <hr>
-
+    <p>Última atualização: <%= data.updatedAt %></p>
+    
     <%- data.body %>
 </div>
 

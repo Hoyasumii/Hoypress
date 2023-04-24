@@ -4,6 +4,7 @@ const router = express.Router();
 const Article = require('../model/Article');
 const Category = require('../model/Category');
 const Slugify = require('slugify');
+const getDate = require('../public/scripts/getDate');
 
 router.get('/', (req, res) => {
 
@@ -17,7 +18,7 @@ router.get('/', (req, res) => {
         results[0].forEach(article => { // Aqui eu estou percorrendo todos os artigos
             article.category = results[1].find(category => { // Aqui eu estou procurando o objeto da categoria que está relacionada com o artigo
                 return category.id == article.categoryId;
-            }).title; // Aqui, eu estou retornando o nome da categoria
+            }); // Aqui, eu estou retornando o nome da categoria
         });
 
         res.render('articles/index', {
@@ -26,7 +27,9 @@ router.get('/', (req, res) => {
                     id: article.id,
                     title: article.title,
                     slug: article.slug,
-                    category: article.category
+                    category: article.category,
+                    createdAt: getDate(article.createdAt),
+                    updatedAt: getDate(article.updatedAt)
                 });
                 return acc;
             }, [])
@@ -53,7 +56,7 @@ router.post('/save', (req, res) => {
 
     Article.create({
         title: title,
-        slug: Slugify(title),
+        slug: Slugify(title).toLowerCase(),
         body: body,
         categoryId: category
     }).then(() => {
@@ -61,17 +64,31 @@ router.post('/save', (req, res) => {
     });
 });
 
-router.get('/read/:slug', (req, res) => {
+router.get('/:slug', (req, res) => {
     let slug = req.params.slug;
-    
-    Article.findOne({
+
+    let categories = Category.findAll({ raw: true });
+    let article = Article.findOne({
         where: { slug },
         raw: true
-    }).then((data) => {
+    });
+
+    Promise.all([article, categories]).then(results => {
+
+        results[0].categoryId = results[1].find(category => category.id == results[0].categoryId);
+
         res.render('articles/read', {
-            data
-        })
-    })
+            data: {
+                id: results[0].id,
+                title: results[0].title,
+                slug: results[0].slug,
+                body: results[0].body,
+                category: results[0].categoryId,
+                createdAt: getDate(results[0].createdAt),
+                updatedAt: getDate(results[0].updatedAt)
+            }
+        });
+    });
 });
 
 router.post('/delete', (req, res) => {
