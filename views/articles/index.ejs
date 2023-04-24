@@ -2,16 +2,15 @@
 
 <div class="container">
 
-    <hr>
-    <div class="d-flex align-items-center justify-content-between">
-        <h1 class="display-6">Articles</h1>
+    <div class="bg-body-tertiary p-5 rounded shadow mb-3">
+        <h1 class="display-1">Artigo</h1>
+        <hr>
         <a class="btn btn-primary" aria-current="page" href="/articles/new">Criar Artigo</a>
     </div>
-    <hr>
 
     <% if(data.length === 0) { %>
         <div class="alert alert-warning" role="alert">
-            Nenhuma artigo cadastrada!
+            Nenhum artigo cadastrado!
         </div>
     <% } else { %>
         <table class="table table-bordered table-hover shadow">

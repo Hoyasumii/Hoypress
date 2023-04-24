@@ -1,6 +1,22 @@
 <%- include("./partials/header.ejs") %>
 
-<div class="container">
+<div class="container d-flex flex-column gap-3">
+    <div class="bg-body-tertiary p-5 rounded shadow">
+        <h1 class="display-1">Bem-vind@</h1>
+        <p>Seja bem-vind@ ao Hoypress.</p>
+    </div>
+
+    <div>
+        <hr>
+        <h3 class="display-5 px-4">Últimas postagens</h3>
+    </div>
+
+    <% data.forEach((article) => { %>
+        <div class="bg-body-tertiary p-3 rounded shadow d-flex justify-content-between align-items-center">
+            <strong><%= article.title %></strong>
+            <a href="/articles/read/<%= article.slug %>" class="btn btn-primary">Ver</a>
+        </div>
+    <% }) %>
     
 </div>
 
