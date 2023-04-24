@@ -2,10 +2,13 @@ const express = require('express');
 const router = express.Router();
 
 const Category = require('../model/Category');
+const Article = require('../model/Article');
 const Slugify = require('slugify');
 
+const getDate = require('../public/scripts/getDate');
+
 router.get('/', (req, res) => {
-    Category.findAll({ raw: true }).then(categories => {
+    Category.findAll({ raw: true, order: [[`id`, `DESC`]] }).then(categories => {
         res.render('categories/index', {
 
             data: categories.reduce((acc, category) => { // Aqui eu estou usando o reduce para transformar o array de objetos em um array de objetos com apenas os atributos que eu quero
@@ -21,8 +24,31 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:slug', (req, res) => {
-    res.send('Rota para exibir os artigos de uma categoria específica')
-}) // TODO: Vou criar a rotas para exibir os artigos de uma categoria específica depois
+    let slug = req.params.slug;
+
+    let articles = Article.findAll({ raw: true, order: [[`id`, `DESC`]] });
+    let category = Category.findOne({ where: { slug }, include: [{model: Article}] }); // Eu estou incluindo todos os artigos que tiverem essa categoria
+
+    Promise.all([category]).then(results => {
+        res.render('articles/index', {
+            data: results[0].articles.reduce((acc, article) => {
+                acc.push({
+                    id: article.id,
+                    title: article.title,
+                    category: category,
+                    slug: article.slug,
+                    createdAt: getDate(article.createdAt),
+                    updatedAt: getDate(article.updatedAt)
+                });
+                return acc;
+            }, []),
+            slug: slug,
+            hasSlug: true
+        });
+    })
+
+
+});
 
 router.get('/new', (req, res) => {
     res.render('categories/new');

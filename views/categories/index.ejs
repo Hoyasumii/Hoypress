@@ -5,7 +5,7 @@
     <div class="bg-body-tertiary p-5 rounded shadow mb-3">
         <h1 class="display-1">Categorias</h1>
         <hr>
-        <a class="btn btn-primary" aria-current="page" href="/categories/new">Criar Categoria</a>
+        <a class="btn btn-dark" aria-current="page" href="/categories/new">Criar Categoria</a>
     </div>
 
     <% if(data.length === 0) { %>
@@ -13,7 +13,25 @@
             Nenhuma categoria cadastrada!
         </div>
     <% } else { %>
-        <table class="table table-bordered table-hover shadow">
+
+        <div class="grid-container">
+            <% data.forEach((category) => { %>
+                <div class="bg-body-tertiary rounded shadow p-3 d-flex  justify-content-between align-items-center grid-item">
+                    <div>
+                        <a href="/categories/<%= category.slug %>" class="text-body link-underline link-underline-secondary link-underline-opacity-0 link-underline-opacity-100-hover">
+                            <strong><%= category.title %></strong>
+                        </a>
+                    </div>
+                    
+                    <div class="d-flex gap-1 gap-md-2">
+                        <a href="/categories/edit/<%= category.id %>" class="btn btn-dark bi bi-pencil"></a>
+                        <button class="btn btn-dark bi bi-trash delete-button" data-bs-toggle="modal" data-bs-target="#confirm-delete-modal" data-id="<%= category.id %>"></button>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+
+        <!-- <table class="table table-bordered table-hover shadow">
             <thead class="bg-body-tertiary">
                 <tr>
                     <% Object.keys(data[0]).forEach((item) => { %>
@@ -29,14 +47,14 @@
                             <td><%= value %></td>
                         <% }); %>
                         <td class="d-flex gap-1">
-                            <a href="/" class="bi bi-eye btn btn-outline-success"></a> <!-- TODO: Implementar essa funcionalidade para ver todos os artigos que possuem essa categoria -->
+                            <a href="/" class="bi bi-eye btn btn-outline-success"></a>
                             <a href="/categories/edit/<%= item.id %>" class="bi bi-pen btn btn-outline-warning"></a>
                             <button class="bi bi-trash btn btn-outline-danger delete-button" data-bs-toggle="modal" data-bs-target="#confirm-delete-modal" data-id="<%= item.id %>"></button>
                         </td>
                     </tr>
                 <% }); %>
             </tbody>
-        </table>
+        </table> -->
     <% } %>
 
     

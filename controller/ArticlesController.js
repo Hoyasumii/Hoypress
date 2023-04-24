@@ -11,6 +11,7 @@ router.get('/', (req, res) => {
     let categories = Category.findAll({ raw: true });
     let articles = Article.findAll({ 
         raw: true,
+        order: [['id', 'DESC']],
         include: [{ model: Category }] // Estou carregando todos os artigos do banco de dados. Aqui eu não vou querer usar, pois eu quero carregar as categorias relacionadas com os artigos dentro do roteamento e não na renderização da view
      })
 
@@ -26,13 +27,14 @@ router.get('/', (req, res) => {
                 acc.push({
                     id: article.id,
                     title: article.title,
-                    slug: article.slug,
                     category: article.category,
+                    slug: article.slug,
                     createdAt: getDate(article.createdAt),
-                    updatedAt: getDate(article.updatedAt)
+                    updatedAt: getDate(article.updatedAt),
                 });
                 return acc;
-            }, [])
+            }, []),
+            hasSlug: false
         });
 
     });

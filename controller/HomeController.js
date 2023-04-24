@@ -15,7 +15,7 @@ router.get(`/`, (req, res) => {
                 updatedAt: getDate(article.updatedAt)
             });
             return acc;
-            }, [])
+            }, []).slice(0, 4)
         });
     });
 });
