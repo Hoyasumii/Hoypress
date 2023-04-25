@@ -4,7 +4,7 @@ const router = express.Router();
 const Article = require('../model/Article');
 const Category = require('../model/Category');
 const Slugify = require('slugify');
-const getDate = require('../src/scripts/getDate');
+const getDate = require('../public/scripts/getDate');
 
 router.get('/', (req, res) => {
 

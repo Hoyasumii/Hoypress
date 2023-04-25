@@ -5,7 +5,7 @@ const Category = require('../model/Category');
 const Article = require('../model/Article');
 const Slugify = require('slugify');
 
-const getDate = require('../src/scripts/getDate');
+const getDate = require('../public/scripts/getDate');
 
 router.get('/', (req, res) => {
     Category.findAll({ raw: true, order: [[`id`, `DESC`]] }).then(categories => {
@@ -23,12 +23,15 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/read/:slug', (req, res) => {
+router.get('/read/:slug', (req, res) => { // TODO: Criar uma página de erro 404
     let slug = req.params.slug;
 
-    let category = Category.findOne({ where: { slug }, include: [{model: Article}], order: [['id', 'DESC']] }); // Eu estou incluindo todos os artigos que tiverem essa categoria
+    let category = Category.findOne({ where: { slug }, include: [{model: Article}]}); // Eu estou incluindo todos os artigos que tiverem essa categoria
 
     Promise.all([category]).then(results => {
+
+        results[0].articles.sort((a, b) => b.id - a.id); // Aqui eu estou ordenando os artigos pelo id de forma decrescente (do maior para o menor)
+
         res.render('articles/index', {
             data: results[0].articles.reduce((acc, article) => {
                 acc.push({
