@@ -1,6 +1,6 @@
 <%- include("../partials/header") %>
 
-<div class="container">
+<main class="container mb-3">
 
     <div class="bg-body-tertiary p-5 rounded shadow mb-3">
         <% if (!hasSlug) { %>
@@ -8,27 +8,33 @@
             <hr>
             <a class="btn btn-dark" aria-current="page" href="/articles/new">Criar Artigo</a>
         <% } else { %>
-            <p class="m-0 fs-1">Artigos da categoria: <strong><%= data[0]?.category?.title == undefined || data[0]?.category?.title == null ? slug : data[0]?.category?.title %></strong> </p>
+            <p class="m-0 fs-1">Artigos da categoria: <strong><%= (data[0]?.category?.title == undefined || data[0]?.category?.title == null) ? slug : data[0]?.category?.title %></strong> </p>
         <% } %>
     </div>
 
     <% if(data.length === 0) { %>
-        <div class="alert alert-secondary" role="alert">
+        <div class="bg-body-tertiary p-3 rounded shadow mb-3">
             Nenhum artigo cadastrado!
         </div>
     <% } else { %>
         <div class="grid-container">
             <% data.forEach((article) => { %>
-                <div class="bg-body-tertiary rounded shadow p-3 d-flex  justify-content-between align-items-center grid-item">
-                    <div>
-                        <a href="/articles/read/<%= article.slug %>" class="text-body link-underline link-underline-secondary link-underline-opacity-0 link-underline-opacity-100-hover">
-                            <strong><%= article.title %></strong>
-                        </a>
+                <div class="bg-body-tertiary rounded shadow p-3 d-flex justify-content-between align-items-center grid-item">
+                    <div class="w-100 mx-2">
+                        <div class="">
+                            <a href="/articles/read/<%= article.slug %>" class="text-body link-underline link-underline-secondary link-underline-opacity-0 link-underline-opacity-100-hover">
+                                <strong><%= article.title %></strong>
+                            </a>
+                        </div>
                         <% if (!hasSlug) { %>
-                            <p class="m-0"><strong>Categoria:</strong> <a href="/categories/read/<%= article.category.slug %>" class="text-body link-underline link-underline-secondary link-underline-opacity-0 link-underline-opacity-100-hover"><%= article.category.title %></a> </p>
+                            <p class="m-0"><a href="/categories/read/<%= article.category.slug %>" class="text-body link-underline link-underline-secondary link-underline-opacity-0 link-underline-opacity-100-hover"><%= article.category.title %></a> </p>
                         <% } %>
-                        <p class="m-0"><strong>Data de postagem: <%= article.createdAt %></strong></p>
-                        <p class="m-0"><strong>Última atualização: <%= article.updatedAt %></strong></p>
+                        <hr class="my-1">
+                        <small class="m-0 small"><%= article.createdAt %></small>
+                        <% if (article.createdAt != article.updatedAt) {%>
+                            <span>-</span>
+                            <small class="m-0 small"><%= article.updatedAt %></small>
+                        <% } %>
                     </div>
                     
                     <div class="d-flex flex-column gap-1 gap-md-2">
@@ -40,23 +46,23 @@
         </div>
     <% } %>
     
-</div>
+</main>
 
 <div class="modal fade" id="confirm-delete-modal" tabindex="-1" aria-labelledby="confirm-delete-modal" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="confirm-delete-modal">Deseja remover o item?</h1>
-            </div>
-            <div class="modal-body">
-                <strong>Deletando esse artigo, você não poderá desfazer.</strong>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <div class="modal-content bg-body-tertiary border-0 shadow">
+            <div class="modal-body d-flex flex-column gap-2">
+                <div class="d-flex justify-content-between">
+                    <h1 class="modal-title fs-5" id="confirm-delete-modal">Deseja remover o item?</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <hr class="m-0">
+                <p class="text-center m-0">Deletando esse artigo, você não poderá desfazer.</p>
                 <form action="/articles/delete" method="post">
                     <input type="hidden" id="delete-id" name="id" value="">
-                    <button type="submit" class="btn btn-danger" id="confirm-delete-button">Deletar</button>
+                    <button type="submit" class="btn btn-dark w-100" id="confirm-delete-button"><span class="bi bi-trash mx-2"></span>Deletar</button>
                 </form>
+            </div>
         </div>
     </div>
 </div>

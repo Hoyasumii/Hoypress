@@ -1,9 +1,0 @@
-<div class="d-flex justify-content-center align-items-center p-3 gap-1 footer-nav">
-    <% for(let index = 0; index < numberOfPages; index++) { %>
-        <% if (index == currentPage - 1) { %>
-            <a href="/home/<%= index + 1 %>" class="rounded border border-0 current-button"><%= index + 1 %></a>
-        <% } else { %>
-            <a href="/home/<%= index + 1 %>" class="btn btn-dark"><%= index + 1 %></a>
-        <% } %>
-    <% } %>
-</div>

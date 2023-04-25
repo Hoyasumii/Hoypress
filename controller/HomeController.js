@@ -3,6 +3,7 @@ const router = express.Router();
 const getDate = require('../public/scripts/getDate');
 
 const Article = require('../model/Article');
+const Category = require('../model/Category');
 
 router.get(`/:page?`, (req, res) => {
 
@@ -19,6 +20,17 @@ router.get(`/:page?`, (req, res) => {
         page = 1;
     }
 
+    let categories = {};
+
+    Category.findAll({ raw: true }).then(category => { // Sistema que pega as Categories e retorna um JSON { "id": "title" }
+        category.forEach(element => {
+            categories[element.id] = { 
+                title: element.title,
+                slug: element.slug
+            }
+        });
+    });
+
     Article.findAndCountAll({ 
         raw: true, 
         order: [['id', 'DESC']],
@@ -31,7 +43,8 @@ router.get(`/:page?`, (req, res) => {
                     id: article.id,
                     title: article.title,
                     slug: article.slug,
-                    updatedAt: getDate(article.updatedAt)
+                    category: categories[article.categoryId],
+                    updatedAt: getDate(article.updatedAt, false)
                 });
             return acc;
             }, []),

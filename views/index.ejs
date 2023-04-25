@@ -1,6 +1,8 @@
 <%- include("./partials/header.ejs") %>
 
-<div class="container d-flex flex-column gap-3">
+<!-- TODO: Criar uma nav diferente para cada usuário. Se o usuário tiver adm, será mostrado os painéis gerais. Mas se não, as categorias irão aparecer na navbar. Caso ultrapasse 3 categorias no menu, irá para o 4 elemento, que será uma página apenas com categorias -->
+
+<main class="container d-flex flex-column gap-3">
     <div class="bg-body-tertiary p-5 rounded shadow">
         <h1 class="display-1">Bem-vind@</h1>
         <p class="lead">Seja bem-vind@ ao Hoypress.</p>
@@ -16,15 +18,33 @@
     <div class="grid-container">
         <% data.forEach((article) => { %>
         <div class="bg-body-tertiary p-3 rounded shadow d-flex flex-column gap-1 grid-item">
-            <a href="/articles/read/<%=  article.slug %>" class="text-body link-underline link-underline-secondary link-underline-opacity-0 link-underline-opacity-100-hover">
-                <strong><%= article.title %></strong>
+            <div>
+                <a href="/articles/read/<%=  article.slug %>" class="text-body link-underline link-underline-secondary link-underline-opacity-0 link-underline-opacity-100-hover">
+                    <strong><%= article.title %></strong>
+                </a>
+                <span class="m-0 small"><%= article.updatedAt %></span>
+            </div>
+            <a href="/categories/read/<%=  article.category.slug %>" class="text-body link-underline link-underline-secondary link-underline-opacity-0 link-underline-opacity-100-hover">
+                <%= article.category.title %>
             </a>
-            <p class="m-0">Última atualização: <%= article.updatedAt %></p>
         </div>
     <% }) %>
     </div>
-    
-</div>
 
-<%- include("./partials/footerNavigation.ejs") %>
+    <div class="d-flex justify-content-between mb-3">
+        <% if(currentPage > 1) { %>
+            <a href="/home/<%= currentPage - 1 %>" class="btn btn-dark bi bi-chevron-left"></a>
+        <% } else { %>
+            <span class="opacity-0"></span>
+        <% } %>
+        <% if(currentPage < numberOfPages) { %>
+            <a href="/home/<%= currentPage + 1 %>" class="btn btn-dark bi bi-chevron-right"></a>
+        <% } else { %>
+            <span class="opacity-0"></span>
+        <% } %>
+    </div>
+    
+    
+</main>
+
 <%- include("./partials/footer.ejs") %>

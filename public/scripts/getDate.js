@@ -6,7 +6,7 @@ function increaseZero(number) {
     }
 }
 
-module.exports = (date) => {
+function getDate(date, extended=true) {
     const dateObj = new Date(date);
     const year = dateObj.getFullYear();
     const month = dateObj.getMonth();
@@ -18,5 +18,11 @@ module.exports = (date) => {
     const hour = dateObj.getHours();
     const minutes = dateObj.getMinutes();
 
+    if (!extended) {
+        return `${increaseZero(day)}/${increaseZero(month)}/${year}`;
+    }
+
     return `${day} de ${monthList[month]} de ${year} às ${increaseZero(hour)}:${increaseZero(minutes)}`;
 }
+
+module.exports = getDate;

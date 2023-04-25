@@ -1,6 +1,6 @@
 <%- include("../partials/header") %>
 
-<div class="container">
+<main class="container">
 
     <div class="bg-body-tertiary p-5 rounded shadow mb-3">
         <p class="d-flex justify-content-between align-items-center m-0">
@@ -10,10 +10,10 @@
         <a href="/categories/read/<%= data.category.slug %>" class="text-body link-underline link-underline-secondary link-underline-opacity-0 link-underline-opacity-100-hover"><strong><%= data.category.title %></strong></a>
     </div>
 
-    <main class="px-5">
+    <div class="px-1 px-sm-3 px-md-5">
         <%- data.body %>
-    </main>
+    </div>
     
-</div>
+</main>
 
 <%- include("../partials/footer") %>
