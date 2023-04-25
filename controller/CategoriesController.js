@@ -5,7 +5,7 @@ const Category = require('../model/Category');
 const Article = require('../model/Article');
 const Slugify = require('slugify');
 
-const getDate = require('../public/scripts/getDate');
+const getDate = require('../src/scripts/getDate');
 
 router.get('/', (req, res) => {
     Category.findAll({ raw: true, order: [[`id`, `DESC`]] }).then(categories => {
@@ -23,11 +23,10 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/:slug', (req, res) => {
+router.get('/read/:slug', (req, res) => {
     let slug = req.params.slug;
 
-    let articles = Article.findAll({ raw: true, order: [[`id`, `DESC`]] });
-    let category = Category.findOne({ where: { slug }, include: [{model: Article}] }); // Eu estou incluindo todos os artigos que tiverem essa categoria
+    let category = Category.findOne({ where: { slug }, include: [{model: Article}], order: [['id', 'DESC']] }); // Eu estou incluindo todos os artigos que tiverem essa categoria
 
     Promise.all([category]).then(results => {
         res.render('articles/index', {
@@ -70,7 +69,7 @@ router.post('/save', (req, res) => {
 
 });
 
-router.post('/delete', (req, res) => {
+router.post('/delete', (req, res) => { // TODO: Adicionar a funcionalidade para remover todos os artigos que tiverem essa categoria
     let id = req.body.id;
 
     let selectedItem = Category.findOne({ // Ao invés de usar o findOne pelo id, eu poderia usar o findByPk, que é um método do sequelize que faz a mesma coisa

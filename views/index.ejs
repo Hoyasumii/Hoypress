@@ -14,7 +14,7 @@
     <div class="grid-container">
         <% data.forEach((article) => { %>
         <div class="bg-body-tertiary p-3 rounded shadow d-flex flex-column gap-1 grid-item">
-            <a href="/articles/<%=  article.slug %>" class="text-body link-underline link-underline-secondary link-underline-opacity-0 link-underline-opacity-100-hover">
+            <a href="/articles/read/<%=  article.slug %>" class="text-body link-underline link-underline-secondary link-underline-opacity-0 link-underline-opacity-100-hover">
                 <strong><%= article.title %></strong>
             </a>
             <p class="m-0">Última atualização: <%= article.updatedAt %></p>

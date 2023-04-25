@@ -18,7 +18,7 @@
             <% data.forEach((category) => { %>
                 <div class="bg-body-tertiary rounded shadow p-3 d-flex  justify-content-between align-items-center grid-item">
                     <div>
-                        <a href="/categories/<%= category.slug %>" class="text-body link-underline link-underline-secondary link-underline-opacity-0 link-underline-opacity-100-hover">
+                        <a href="/categories/read/<%= category.slug %>" class="text-body link-underline link-underline-secondary link-underline-opacity-0 link-underline-opacity-100-hover">
                             <strong><%= category.title %></strong>
                         </a>
                     </div>
@@ -30,34 +30,9 @@
                 </div>
             <% }); %>
         </div>
-
-        <!-- <table class="table table-bordered table-hover shadow">
-            <thead class="bg-body-tertiary">
-                <tr>
-                    <% Object.keys(data[0]).forEach((item) => { %>
-                        <th scope="col"><%= item %></th>
-                    <% }); %>
-                    <th scope="col">Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% data.forEach((item) => { %>
-                    <tr>
-                        <% Object.values(item).forEach((value) => { %>
-                            <td><%= value %></td>
-                        <% }); %>
-                        <td class="d-flex gap-1">
-                            <a href="/" class="bi bi-eye btn btn-outline-success"></a>
-                            <a href="/categories/edit/<%= item.id %>" class="bi bi-pen btn btn-outline-warning"></a>
-                            <button class="bi bi-trash btn btn-outline-danger delete-button" data-bs-toggle="modal" data-bs-target="#confirm-delete-modal" data-id="<%= item.id %>"></button>
-                        </td>
-                    </tr>
-                <% }); %>
-            </tbody>
-        </table> -->
+        
     <% } %>
 
-    
 </div>
 
 <div class="modal fade" id="confirm-delete-modal" tabindex="-1" aria-labelledby="confirm-delete-modal" aria-hidden="true">

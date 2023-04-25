@@ -2,18 +2,16 @@
 
 <div class="container">
 
-    <div class="card shadow">
-        <div class="card-header">
-            <h3 class="card-title m-0">Cadastrar nova categoria</h3>
-        </div>
-        <div class="card-body">
-            <form action="/categories/save" method="post">
-                <label for="category-name" class="mb-1">Defina o título da categoria</label>
-                <input type="text" class="form-control" autocomplete="none" id="category-name" name="title" placeholder="Ficção, Relatos sobrenaturais, Pensamentos, ...">
-                <br>
-                <button class="btn btn-primary">Cadastrar</button>
-            </form>
-        </div>
+    <div class="bg-body-tertiary rounded shadow p-3">
+        <h3 class="m-0">Cadastrar nova categoria</h3>
+        <hr>
+
+        <form action="/categories/save" method="post">
+            <label for="category-name" class="mb-1">Defina o título da categoria</label>
+            <input type="text" class="form-control" autocomplete="none" id="category-name" name="title" placeholder="Ficção, Relatos sobrenaturais, Pensamentos, ...">
+            <br>
+            <button class="btn btn-dark">Cadastrar</button>
+        </form>
     </div>
 
     

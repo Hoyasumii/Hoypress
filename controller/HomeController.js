@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const getDate = require('../public/scripts/getDate');
+const getDate = require('../src/scripts/getDate');
 
 const Article = require('../model/Article');
 

@@ -4,7 +4,7 @@ const router = express.Router();
 const Article = require('../model/Article');
 const Category = require('../model/Category');
 const Slugify = require('slugify');
-const getDate = require('../public/scripts/getDate');
+const getDate = require('../src/scripts/getDate');
 
 router.get('/', (req, res) => {
 
@@ -66,7 +66,7 @@ router.post('/save', (req, res) => {
     });
 });
 
-router.get('/:slug', (req, res) => {
+router.get('/read/:slug', (req, res) => {
     let slug = req.params.slug;
 
     let categories = Category.findAll({ raw: true });
@@ -103,5 +103,37 @@ router.post('/delete', (req, res) => {
     });
     
 })
+
+router.get(`/edit/:id`, (req, res) => {
+    let id = req.params.id;
+
+    let categories = Category.findAll({ raw: true });
+    let article = Article.findByPk(id);
+
+    Promise.all([article, categories]).then(results => {
+        res.render('articles/edit', {
+            data: results[0],
+            categories: results[1]
+        });
+    });
+});
+
+router.post('/update', (req, res) => {
+    let id = req.body.id;
+    let title = req.body.title;
+    let body = req.body.body;
+    let category = req.body.category;
+
+    Article.update({
+        title: title,
+        slug: Slugify(title).toLowerCase(),
+        body: body,
+        categoryId: category
+    }, {
+        where: { id }
+    }).then(() => {
+        res.redirect('/articles');
+    });
+});
 
 module.exports = router;
