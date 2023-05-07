@@ -2,7 +2,7 @@
 
 <main class="container">
     <div class="bg-body-tertiary p-5 rounded shadow mb-3">
-        <h3 class="card-title m-0">Cadastrar novo artigo</h3>
+        <h3 class="card-title m-0">Editar artigo</h3>
         <hr>
         <form action="/articles/update" method="post">
             <input type="hidden" name="id" value="<%= data.id %>">
@@ -31,7 +31,7 @@
         icons: 'bootstrap',
         skin: 'oxide-dark',
         content_css: 'tinymce-5-dark',
-        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags typography inlinecss',
+        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
         toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
         tinycomments_mode: 'embedded',
         tinycomments_author: 'Author name',

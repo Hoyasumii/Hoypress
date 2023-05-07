@@ -30,7 +30,11 @@ router.get('/read/:slug', (req, res) => { // TODO: Criar uma página de erro 404
 
     Promise.all([category]).then(results => {
 
-        results[0].articles.sort((a, b) => b.id - a.id); // Aqui eu estou ordenando os artigos pelo id de forma decrescente (do maior para o menor)
+        let category = results[0];
+
+        if (!category) throw new Error("Category not found");
+
+        category.articles.sort((a, b) => b.id - a.id); // Aqui eu estou ordenando os artigos pelo id de forma decrescente (do maior para o menor)
 
         res.render('articles/index', {
             data: results[0].articles.reduce((acc, article) => {
@@ -47,6 +51,8 @@ router.get('/read/:slug', (req, res) => { // TODO: Criar uma página de erro 404
             slug: slug,
             hasSlug: true
         });
+    }).catch(err => {
+        res.render(`error`);
     })
 
 

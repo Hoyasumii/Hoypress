@@ -77,7 +77,12 @@ router.get('/read/:slug', (req, res) => {
 
     Promise.all([article, categories]).then(results => {
 
-        results[0].categoryId = results[1].find(category => category.id == results[0].categoryId);
+        let article = results[0];
+        let categories = results[1];
+
+        if (!article) throw new Error('Article not found');
+
+        article.categoryId = categories.find(category => category.id == results[0].categoryId);
 
         res.render('articles/read', {
             data: {
@@ -90,6 +95,8 @@ router.get('/read/:slug', (req, res) => {
                 updatedAt: getDate(results[0].updatedAt)
             }
         });
+    }).catch(err => {
+        res.render(`error`);
     });
 });
 
@@ -113,7 +120,8 @@ router.get(`/edit/:id`, (req, res) => {
     Promise.all([article, categories]).then(results => {
         res.render('articles/edit', {
             data: results[0],
-            categories: results[1]
+            categories: results[1],
+            edit: true
         });
     });
 });

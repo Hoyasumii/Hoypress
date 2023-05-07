@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({extended: false})); // Para aceitar dados de form
 app.use(bodyParser.json()); // Para aceitar dados de JSON
 
 app.use('/home', require('./controller/HomeController'));
-app.use('/user', require('./controller/UserController'));
+app.use('/users', require('./controller/UsersController'));
 app.use('/categories', require('./controller/CategoriesController'));
 app.use('/articles', require('./controller/ArticlesController'));
 
