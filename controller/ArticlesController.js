@@ -50,13 +50,18 @@ router.get('/new', authenticate, (req, res) => {
     let categories = Category.findAll({ raw: true });
 
     Promise.all([categories]).then(results => {
+
+        if (results[0].length == 0) throw new Error('No categories found');
+
         res.render('articles/new', {
             data: results[0], // Pq eu coloquei o [0]? Simples, pq eu usando o Promise.all eu estou colocando um array como argumento e ele retorna um array. Como eu sei que o único elemento que será retornado é o categories, eu posso pegar o primeiro elemento do array
             title: `Novo Artigo`,
             isAuthenticated: req.session.user != undefined,
             categories: res.locals.categories
         });
-    });
+    }).catch(err => {
+        res.redirect('/categories/new');
+    })
 });
 
 router.post('/save', authenticate, (req, res) => {
@@ -138,8 +143,7 @@ router.get(`/edit/:id`, authenticate, (req, res) => {
         
         res.render('articles/edit', {
             data: results[0],
-            categories: results[1],
-            edit: true,
+            FormCategories: results[1],
             title: `Editar Artigo`,
             isAuthenticated: req.session.user != undefined,
             categories: res.locals.categories

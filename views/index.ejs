@@ -6,12 +6,14 @@
         <p class="lead">Seja bem-vind@ ao Hoypress.</p>
     </div>
 
-    <div>
-        <br>
-        <br>
-        <h2 class="px-4">Últimas postagens</h2>
-        <hr>
-    </div>
+    <% if (data.length > 0) { %>
+        <div>
+            <br>
+            <br>
+            <h2 class="px-4">Últimas postagens</h2>
+            <hr>
+        </div>
+    <% } %>
 
     <div class="grid-container">
         <% data.forEach((article) => { %>

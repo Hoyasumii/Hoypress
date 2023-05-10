@@ -49,7 +49,7 @@ router.get(`/:page?`, (req, res) => {
             return acc;
         }, []);
 
-        if (data.length == 0) throw new Error('Articles not found');
+        // if (data.length == 0) throw new Error('Articles not found');
 
         res.render("index", { 
             data,
@@ -59,13 +59,13 @@ router.get(`/:page?`, (req, res) => {
             isAuthenticated: req.session.user != undefined,
             categories: res.locals.categories
         });
-    }).catch(err => {
+    })/* .catch(err => {
         res.render("error", { 
             title: `Erro`, 
             isAuthenticated: req.session.user != undefined,
             categories: res.locals.categories
         });
-    })
+    }) */
 });
 
 module.exports = router;
