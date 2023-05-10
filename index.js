@@ -3,8 +3,6 @@ const app = express();
 const bodyParser = require('body-parser');
 const session = require('express-session');
 
-// TODO: Quando eu terminar de desenvolver esse projeto, colocar o Sequelize para usar o sqlite ao invés do mysql
-
 const Categories = require('./model/Category');
 
 const connection = require('./database');

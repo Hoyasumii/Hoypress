@@ -13,11 +13,13 @@
 ## 2. Como testar o projeto
 1. Tenha o **Node.js** instalado na sua máquina. Caso não tenha, basta clicar [**aqui**](https://nodejs.org/en/) para baixar.
 2. Tenha o **Git** instalado na sua máquina. Caso não tenha, basta clicar [**aqui**](https://git-scm.com/downloads) para baixar.
-3. Abra o **Git** e digite: `git clone https://github.com/Hoyasumii/Hoypress.git`
-4. Após clonar o repositório, abra o terminal na pasta do projeto e digite: `npm install`
-5. Após instalar as dependências, digite: `npm start`
-6. Abra o navegador e digite: `localhost:3000`
-7. Pronto! O projeto já está rodando na sua máquina.
+3. Tenha o **MySql** instalado na sua máquina. Caso não tenha, basta clicar [**aqui**](https://dev.mysql.com/downloads/) para baixar.
+4. Abra o **Git** e digite: `git clone https://github.com/Hoyasumii/Hoypress.git`
+5. Após clonar o repositório, abra o terminal na pasta do projeto e digite: `npm install`
+6. Configure o banco de dados. Para isso, abra o arquivo `./database.js` e altere os dados de acordo com o seu banco de dados.
+7. Após instalar as dependências, digite: `npm start`
+8. Abra o navegador e digite: `localhost:3000`
+9. Pronto! O projeto já está rodando na sua máquina.
 
 ## 3. Conclusão e comentários
 - O projeto inicialmente foi divertido de se fazer, tanto que investi muito em um front-end que fosse diferente do que o professor estava ensinando, entretanto, quando eu precisei fazer uma pausa no desenvolvimento para realizar o [Teste Fullstack - Medlynx](https://github.com/Hoyasumii/teste-fullstack-medlynx) e retomei ao projeto, senti a ineficiência de usar o padrão MVC em projetos, pois as engines de templates de HTML não são tão eficientes quanto um framework ou biblioteca voltada ao desenvolvimento web atual. Como eu posso dizer, elas limitam a dinamicidade de um site. Por exemplo, ao enviar os dados da View para um script JavaScript, você vai sentir o quão esquisito é. Eu imagino que deva haver maneiras mais tranquilas de fazer isso, mas usando essas engines como EJS, vai ser um pouco chato.

@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-const connection = new Sequelize('hoypress2', 'root', '1909', {
+const connection = new Sequelize('DATABASE_NAME', 'USERNAME', 'PASSWORD', {
     host: 'localhost',
     dialect: 'mysql',
 })

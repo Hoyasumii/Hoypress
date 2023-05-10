@@ -12,7 +12,7 @@
             <label for="article-category" class="mb-1">Selecione a categoria do artigo</label>
             <select class="form-select" id="article-category" name="category">
                 <% FormCategories.forEach((item) => { %>
-                    <option value="<%= item.id %>" <%- data.categoryId == item.id ? `selected` : null %> ><%= item.id %> <%= item.title %></option>
+                    <option value="<%= item.id %>" <%- data.categoryId == item.id ? `selected` : null %>><%= item.title %></option>
                 <% }); %>
             </select>
             <br>
