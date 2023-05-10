@@ -37,21 +37,35 @@ router.get(`/:page?`, (req, res) => {
         limit: offsetLimit,
         offset: (page - 1) * offsetLimit
     }).then((articles) => {
-        res.render("index", { 
-            data: articles.rows.reduce((acc, article) => {
-                acc.push({
-                    id: article.id,
-                    title: article.title,
-                    slug: article.slug,
-                    category: categories[article.categoryId],
-                    updatedAt: getDate(article.updatedAt, false)
-                });
+
+        let data = articles.rows.reduce((acc, article) => {
+            acc.push({
+                id: article.id,
+                title: article.title,
+                slug: article.slug,
+                category: categories[article.categoryId],
+                updatedAt: getDate(article.updatedAt, false)
+            });
             return acc;
-            }, []),
+        }, []);
+
+        if (data.length == 0) throw new Error('Articles not found');
+
+        res.render("index", { 
+            data,
             currentPage: page,
-            numberOfPages: Math.ceil(articles.count / offsetLimit) // Aqui eu estou definindo o número máximo de páginas que um artigo pode ter
+            numberOfPages: Math.ceil(articles.count / offsetLimit), // Aqui eu estou definindo o número máximo de páginas que um artigo pode ter
+            title: `Página Inicial`,
+            isAuthenticated: req.session.user != undefined,
+            categories: res.locals.categories
         });
-    });
+    }).catch(err => {
+        res.render("error", { 
+            title: `Erro`, 
+            isAuthenticated: req.session.user != undefined,
+            categories: res.locals.categories
+        });
+    })
 });
 
 module.exports = router;

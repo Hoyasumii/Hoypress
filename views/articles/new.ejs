@@ -2,15 +2,14 @@
 
 <main class="container">
     <div class="bg-body-tertiary p-5 rounded shadow mb-3">
-        <h3 class="card-title m-0">Cadastrar novo artigo</h3>
+        <h3 class="m-0">Cadastrar novo artigo</h3>
         <hr>
         <form action="/articles/save" method="post">
             <label for="article-title" class="mb-1">Defina o título do artigo</label>
-            <input type="text" class="form-control" autocomplete="none" id="article-title" name="title" placeholder="Título do artigo">
+            <input type="text" class="form-control" autocomplete="none" id="article-title" name="title" placeholder="A ódisseia do Morrisey">
             <br>
             <label for="article-category" class="mb-1">Selecione a categoria do artigo</label>
             <select class="form-select" id="article-category" name="category">
-                <option value="0" selected hidden > Escolha a categoria </option> <!-- TODO: Criar um validador para o usuário não poder enviar os dados com a categoria igual a "Escolha a categoria" -->
                 <% data.forEach((item) => { %>
                     <option value="<%= item.id %>"><%= item.title %></option>
                 <% }); %>
@@ -31,7 +30,7 @@
         icons: 'bootstrap',
         skin: 'oxide-dark',
         content_css: 'tinymce-5-dark',
-        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags typography inlinecss',
+        plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
         toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
         tinycomments_mode: 'embedded',
         tinycomments_author: 'Author name'
