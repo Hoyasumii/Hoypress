@@ -5,8 +5,10 @@
     <div class="bg-body-tertiary p-5 rounded shadow mb-3">
         <% if (!hasSlug) { %>
             <h1 class="display-1">Artigos</h1>
-            <hr>
-            <a class="btn btn-dark" aria-current="page" href="/articles/new">Criar Artigo</a>
+            <% if (isAuthenticated) { %>
+                <hr>
+                <a class="btn btn-dark" aria-current="page" href="/articles/new">Criar Artigo</a>
+            <% } %>
         <% } else { %>
             <p class="m-0 fs-1">Artigos da categoria: <strong><%= (data[0]?.category?.title == undefined || data[0]?.category?.title == null) ? slug : data[0]?.category?.title %></strong> </p>
         <% } %>
@@ -36,11 +38,13 @@
                             <small class="m-0 small"><%= article.updatedAt %></small>
                         <% } %>
                     </div>
-                    
-                    <div class="d-flex flex-column gap-1 gap-md-2">
-                        <a href="/articles/edit/<%= article.id %>" class="btn btn-dark bi bi-pencil"></a>
-                        <button class="btn btn-dark bi bi-trash delete-button" data-bs-toggle="modal" data-bs-target="#confirm-delete-modal" data-id="<%= article.id %>"></button>
-                    </div>
+
+                    <% if (isAuthenticated) { %>
+                        <div class="d-flex flex-column gap-1 gap-md-2">
+                            <a href="/articles/edit/<%= article.id %>" class="btn btn-dark bi bi-pencil"></a>
+                            <button class="btn btn-dark bi bi-trash delete-button" data-bs-toggle="modal" data-bs-target="#confirm-delete-modal" data-id="<%= article.id %>"></button>
+                        </div>
+                    <% } %>
                 </div>
             <% }); %>
         </div>

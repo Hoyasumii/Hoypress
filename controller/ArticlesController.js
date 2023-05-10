@@ -4,7 +4,9 @@ const router = express.Router();
 const Article = require('../model/Article');
 const Category = require('../model/Category');
 const Slugify = require('slugify');
+
 const getDate = require('../public/scripts/getDate');
+const authenticate = require('../middleware/authenticate');
 
 router.get('/', (req, res) => {
 
@@ -34,24 +36,30 @@ router.get('/', (req, res) => {
                 });
                 return acc;
             }, []),
-            hasSlug: false
+            isAuthenticated: req.session.user != undefined,
+            hasSlug: false,
+            title: `Artigos`,
+            categories: res.locals.categories
         });
 
     });
 })
 
-router.get('/new', (req, res) => {
+router.get('/new', authenticate, (req, res) => {
 
     let categories = Category.findAll({ raw: true });
 
     Promise.all([categories]).then(results => {
         res.render('articles/new', {
-            data: results[0] // Pq eu coloquei o [0]? Simples, pq eu usando o Promise.all eu estou colocando um array como argumento e ele retorna um array. Como eu sei que o único elemento que será retornado é o categories, eu posso pegar o primeiro elemento do array
+            data: results[0], // Pq eu coloquei o [0]? Simples, pq eu usando o Promise.all eu estou colocando um array como argumento e ele retorna um array. Como eu sei que o único elemento que será retornado é o categories, eu posso pegar o primeiro elemento do array
+            title: `Novo Artigo`,
+            isAuthenticated: req.session.user != undefined,
+            categories: res.locals.categories
         });
     });
 });
 
-router.post('/save', (req, res) => {
+router.post('/save', authenticate, (req, res) => {
     let title = req.body.title;
     let body = req.body.body;
     let category = req.body.category;
@@ -93,14 +101,21 @@ router.get('/read/:slug', (req, res) => {
                 category: results[0].categoryId,
                 createdAt: getDate(results[0].createdAt),
                 updatedAt: getDate(results[0].updatedAt)
-            }
+            },
+            title: results[0].title,
+            isAuthenticated: req.session.user != undefined,
+            categories: res.locals.categories
         });
     }).catch(err => {
-        res.render(`error`);
+        res.render(`error`, { 
+            title: `Erro`, 
+            isAuthenticated: req.session.user != undefined,
+            categories: res.locals.categories 
+        });
     });
 });
 
-router.post('/delete', (req, res) => {
+router.post('/delete', authenticate, (req, res) => {
     let id = req.body.id;
 
     Article.destroy({
@@ -111,22 +126,35 @@ router.post('/delete', (req, res) => {
     
 })
 
-router.get(`/edit/:id`, (req, res) => {
+router.get(`/edit/:id`, authenticate, (req, res) => {
     let id = req.params.id;
 
     let categories = Category.findAll({ raw: true });
     let article = Article.findByPk(id);
-
+    
     Promise.all([article, categories]).then(results => {
+
+        if (!results[0]) throw new Error('Article not found');
+        
         res.render('articles/edit', {
             data: results[0],
             categories: results[1],
-            edit: true
+            edit: true,
+            title: `Editar Artigo`,
+            isAuthenticated: req.session.user != undefined,
+            categories: res.locals.categories
+        });
+
+    }).catch(err => {
+        res.render(`error`, { 
+            title: `Erro`, 
+            isAuthenticated: req.session.user != undefined,
+            categories: res.locals.categories 
         });
     });
 });
 
-router.post('/update', (req, res) => {
+router.post('/update', authenticate, (req, res) => {
     let id = req.body.id;
     let title = req.body.title;
     let body = req.body.body;

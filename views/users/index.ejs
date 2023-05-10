@@ -1,0 +1,29 @@
+<%- include(`../partials/header.ejs`) %>
+
+<main class="container mb-3">
+
+    <div class="bg-body-tertiary p-5 rounded shadow mb-3">
+        <h1 class="display-1">Contas</h1>
+        <hr>
+        <a class="btn btn-dark" aria-current="page" href="/users/register">Criar conta</a>
+    </div>
+
+    <% if(data.length === 0) { %>
+        <div class="bg-body-tertiary p-3 rounded shadow mb-3">
+            Nenhuma conta cadastrada!
+        </div>
+    <% } else { %>
+
+        <div class="grid-container">
+            <% data.forEach((category) => { %>
+                <div class="bg-body-tertiary rounded shadow p-3 grid-item">
+                    <strong><%= category.email %></strong>
+                </div>
+            <% }); %>
+        </div>
+        
+    <% } %>
+
+</main>
+
+<%- include(`../partials/footer.ejs`) %>

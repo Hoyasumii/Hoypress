@@ -1,0 +1,28 @@
+<%- include(`../partials/header.ejs`) %>
+
+<div class="container">
+    <div class="bg-body-tertiary p-5 rounded shadow">
+        <h3 class="m-0"><%- register ? "Criar nova conta" : "Acessar conta" %></h3>
+        <hr>
+        
+        <form action=<%- register ? "/users/register" : "/users/authenticate" %> method="post" id="user-form" novalidate>
+            <div>
+                <label for="email">Email</label>
+                <input pattern="\w{6,}@[a-zA-Z]{2,}\.[a-zA-Z]{2,}" type="email" class="form-control" name="email" id="email" placeholder="usuario@email.com" required>
+                <div class="invalid-feedback">Esse email não é válido.</div>
+            </div>
+            <br>
+            <div>
+                <label for="password">Senha</label>
+                <input pattern="\w{6,}" type="password" class="form-control" name="password" id="password" placeholder="********" required>
+                <div class="invalid-feedback">Para a senha ser válida, é preciso colocar pelo menos 6 caracteres.</div>
+            </div>
+            <br>
+            <button class="btn btn-dark"><%- register ? "Criar conta" : "Acessar" %></button>
+        </form>
+    </div>
+</div>
+
+<script src="/scripts/document/usersIndex.js"></script>
+
+<%- include(`../partials/footer.ejs`) %>

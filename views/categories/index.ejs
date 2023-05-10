@@ -4,12 +4,14 @@
 
     <div class="bg-body-tertiary p-5 rounded shadow mb-3">
         <h1 class="display-1">Categorias</h1>
-        <hr>
-        <a class="btn btn-dark" aria-current="page" href="/categories/new">Criar Categoria</a>
+        <% if (isAuthenticated) { %>
+            <hr>
+            <a class="btn btn-dark" aria-current="page" href="/categories/new">Criar Categoria</a>
+        <% } %>
     </div>
 
     <% if(data.length === 0) { %>
-        <div class="abg-body-tertiary p-3 rounded shadow mb-3">
+        <div class="bg-body-tertiary p-3 rounded shadow mb-3">
             Nenhuma categoria cadastrada!
         </div>
     <% } else { %>
@@ -22,11 +24,15 @@
                             <strong><%= category.title %></strong>
                         </a>
                     </div>
+
+                    <% if (isAuthenticated) { %>
                     
-                    <div class="d-flex gap-1 gap-md-2">
-                        <a href="/categories/edit/<%= category.id %>" class="btn btn-dark bi bi-pencil"></a>
-                        <button class="btn btn-dark bi bi-trash delete-button" data-bs-toggle="modal" data-bs-target="#confirm-delete-modal" data-id="<%= category.id %>"></button>
-                    </div>
+                        <div class="d-flex gap-1 gap-md-2">
+                            <a href="/categories/edit/<%= category.id %>" class="btn btn-dark bi bi-pencil"></a>
+                            <button class="btn btn-dark bi bi-trash delete-button" data-bs-toggle="modal" data-bs-target="#confirm-delete-modal" data-id="<%= category.id %>"></button>
+                        </div>
+
+                    <% } %>
                 </div>
             <% }); %>
         </div>
