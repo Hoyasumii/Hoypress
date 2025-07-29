@@ -1,7 +1,7 @@
 declare namespace NodeJS {
 	export interface ProcessEnv {
-		DB_HOST: string;
-		DB_NAME: string;
+		DATABASE_URL: string;
+		DIRECT_URL: string;
 		JWT_SECRET: string;
 	}
 }

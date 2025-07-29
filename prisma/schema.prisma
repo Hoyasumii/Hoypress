@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Article {
+  id         String    @id @default(uuid())
+  title      String
+  slug       String
+  body       String
+  Category   Category? @relation(fields: [categoryId], references: [id])
+  categoryId String?
+
+  @@map("articles")
+}
+
+model Category {
+  id       String    @id @default(uuid())
+  title    String
+  slug     String
+  articles Article[]
+
+  @@map("categories")
+}
+
+model User {
+  id       String @id @default(uuid())
+  email    String
+  password String
+}

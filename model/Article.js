@@ -1,21 +1,21 @@
-const Sequelize = require('sequelize');
+const Sequelize = require("sequelize");
 const connection = require(`../database`);
 
-const CategoryModel = require('./Category');
+const CategoryModel = require("./Category");
 
-const Article = connection.define('articles', {
-    title: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    slug: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    body: {
-        type: Sequelize.TEXT,
-        allowNull: false
-    }
+const Article = connection.define("articles", {
+	title: {
+		type: Sequelize.STRING,
+		allowNull: false,
+	},
+	slug: {
+		type: Sequelize.STRING,
+		allowNull: false,
+	},
+	body: {
+		type: Sequelize.TEXT,
+		allowNull: false,
+	},
 });
 
 // Relacionamentos em Sequelize
