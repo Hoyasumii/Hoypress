@@ -3,22 +3,24 @@ import { EJSRR, paramsWithPartials } from "@/utils";
 import { renderFile } from "ejs";
 import type { NextRequest } from "next/server";
 
-export async function GET(request: NextRequest) {
-	// const searchParams = new URL(request.url).searchParams;
-
+export async function GET() {
 	const pageContent = await renderFile(
-		`${viewsPath}/index.ejs`,
+		`${viewsPath}/users/access.ejs`,
 		paramsWithPartials({
-			data: [],
-			currentPage: 1,
-			numberOfPages: 1,
-			title: "Página Inicial",
+			register: true,
+			title: "Crie a sua Conta",
 			isAuthenticated: false,
 			categories: [],
 		}),
 	);
 
-	// const page = searchParams.get("page");
-
 	return EJSRR(pageContent);
+}
+
+export async function POST(request: NextRequest) {
+  const formData = await request.formData();
+
+  const email = formData.get("email");
+  const password = formData.get("password");
+
 }

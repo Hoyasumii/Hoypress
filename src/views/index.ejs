@@ -33,12 +33,12 @@
 
     <div class="d-flex justify-content-between mb-3">
         <% if(currentPage > 1) { %>
-            <a href="/home/<%= currentPage - 1 %>" class="btn btn-dark bi bi-chevron-left"></a>
+            <a href="//<%= currentPage - 1 %>" class="btn btn-dark bi bi-chevron-left"></a>
         <% } else { %>
             <span class="opacity-0"></span>
         <% } %>
         <% if(currentPage < numberOfPages) { %>
-            <a href="/home/<%= currentPage + 1 %>" class="btn btn-dark bi bi-chevron-right"></a>
+            <a href="//<%= currentPage + 1 %>" class="btn btn-dark bi bi-chevron-right"></a>
         <% } else { %>
             <span class="opacity-0"></span>
         <% } %>

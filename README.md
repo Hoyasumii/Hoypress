@@ -1,3 +1,5 @@
+[nodejs, nextjs, ts, prisma, supabase, postgresql, html, css, js, bootstrap]
+
 # Hoypress
 
 ## Índice

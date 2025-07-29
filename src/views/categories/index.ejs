@@ -1,64 +1,72 @@
 <%- include(header) %>
 
-<main class="container mb-3">
+    <main class="container mb-3">
 
-    <div class="bg-body-tertiary p-5 rounded shadow mb-3">
-        <h1 class="display-1">Categorias</h1>
-        <% if (isAuthenticated) { %>
-            <hr>
-            <a class="btn btn-dark" aria-current="page" href="/categories/new">Criar Categoria</a>
-        <% } %>
-    </div>
-
-    <% if(data.length === 0) { %>
-        <div class="bg-body-tertiary p-3 rounded shadow mb-3">
-            Nenhuma categoria cadastrada!
+        <div class="bg-body-tertiary p-5 rounded shadow mb-3">
+            <h1 class="display-1">Categorias</h1>
+            <% if (isAuthenticated) { %>
+                <hr>
+                <a class="btn btn-dark" aria-current="page" href="/categories/new">Criar Categoria</a>
+                <% } %>
         </div>
-    <% } else { %>
 
-        <div class="grid-container">
-            <% data.forEach((category) => { %>
-                <div class="bg-body-tertiary rounded shadow p-3 d-flex  justify-content-between align-items-center grid-item">
-                    <div>
-                        <a href="/categories/read/<%= category.slug %>" class="text-body link-underline link-underline-secondary link-underline-opacity-0 link-underline-opacity-100-hover">
-                            <strong><%= category.title %></strong>
-                        </a>
-                    </div>
+        <% if(data.length===0) { %>
+            <div class="bg-body-tertiary p-3 rounded shadow mb-3">
+                Nenhuma categoria cadastrada!
+            </div>
+            <% } else { %>
 
-                    <% if (isAuthenticated) { %>
-                    
-                        <div class="d-flex gap-1 gap-md-2">
-                            <a href="/categories/edit/<%= category.id %>" class="btn btn-dark bi bi-pencil"></a>
-                            <button class="btn btn-dark bi bi-trash delete-button" data-bs-toggle="modal" data-bs-target="#confirm-delete-modal" data-id="<%= category.id %>"></button>
+                <div class="grid-container">
+                    <% data.forEach((category)=> { %>
+                        <div
+                            class="bg-body-tertiary rounded shadow p-3 d-flex  justify-content-between align-items-center grid-item">
+                            <div>
+                                <a href="/categories/read/<%= category.slug %>"
+                                    class="text-body link-underline link-underline-secondary link-underline-opacity-0 link-underline-opacity-100-hover">
+                                    <strong>
+                                        <%= category.title %>
+                                    </strong>
+                                </a>
+                            </div>
+
+                            <% if (isAuthenticated) { %>
+
+                                <div class="d-flex gap-1 gap-md-2">
+                                    <a href="/categories/edit/<%= category.id %>" class="btn btn-dark bi bi-pencil"></a>
+                                    <button class="btn btn-dark bi bi-trash delete-button" data-bs-toggle="modal"
+                                        data-bs-target="#confirm-delete-modal" data-id="<%= category.id %>"></button>
+                                </div>
+
+                                <% } %>
                         </div>
-
-                    <% } %>
+                        <% }); %>
                 </div>
-            <% }); %>
-        </div>
-        
-    <% } %>
 
-</main>
+                <% } %>
 
-<div class="modal fade" id="confirm-delete-modal" tabindex="-1" aria-labelledby="confirm-delete-modal" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content bg-body-tertiary border-0 shadow">
-            <div class="modal-body d-flex flex-column gap-2">
-                <div class="d-flex justify-content-between">
-                    <h1 class="modal-title fs-5" id="confirm-delete-modal">Deseja remover o item?</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </main>
+
+    <div class="modal fade" id="confirm-delete-modal" tabindex="-1" aria-labelledby="confirm-delete-modal"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-body-tertiary border-0 shadow">
+                <div class="modal-body d-flex flex-column gap-2">
+                    <div class="d-flex justify-content-between">
+                        <h1 class="modal-title fs-5" id="confirm-delete-modal">Deseja remover o item?</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <hr class="m-0">
+                    <p class="m-0">Deletando essa categoria, você também irá deletar todos os artigos que possuem essa
+                        categoria.</p>
+                    <strong>Esta ação não pode ser desfeita.</strong>
+                    <form action="/categories/delete" method="post">
+                        <input type="hidden" id="delete-id" name="id" value="">
+                        <button type="submit" class="btn btn-dark w-100" id="confirm-delete-button"><span
+                                class="bi bi-trash mx-2"></span>Deletar</button>
+                    </form>
                 </div>
-                <hr class="m-0">
-                <p class="m-0">Deletando essa categoria, você também irá deletar todos os artigos que possuem essa categoria.</p>
-                <strong>Esta ação não pode ser desfeita.</strong>
-                <form action="/categories/delete" method="post">
-                    <input type="hidden" id="delete-id" name="id" value="">
-                    <button type="submit" class="btn btn-dark w-100" id="confirm-delete-button"><span class="bi bi-trash mx-2"></span>Deletar</button>
-                </form>
             </div>
         </div>
     </div>
-</div>
 
-<%- include(footer) %>
+    <%- include(footer) %>

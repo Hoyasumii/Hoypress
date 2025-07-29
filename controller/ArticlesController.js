@@ -5,7 +5,7 @@ const Article = require('../model/Article');
 const Category = require('../model/Category');
 const Slugify = require('slugify');
 
-const getDate = require('../public/scripts/getDate');
+const getDate = require('../src/utils/get-date');
 const authenticate = require('../middleware/authenticate');
 
 router.get('/', (req, res) => {

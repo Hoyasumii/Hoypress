@@ -4,21 +4,16 @@ import { renderFile } from "ejs";
 import type { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
-	// const searchParams = new URL(request.url).searchParams;
-
 	const pageContent = await renderFile(
-		`${viewsPath}/index.ejs`,
+		`${viewsPath}/articles/index.ejs`,
 		paramsWithPartials({
 			data: [],
-			currentPage: 1,
-			numberOfPages: 1,
-			title: "Página Inicial",
-			isAuthenticated: false,
+			isAuthenticated: true,
+			hasSlug: false,
+      title: "Artigos",
 			categories: [],
 		}),
 	);
-
-	// const page = searchParams.get("page");
 
 	return EJSRR(pageContent);
 }
