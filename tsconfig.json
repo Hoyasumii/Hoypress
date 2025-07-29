@@ -1,0 +1,46 @@
+{
+	"compilerOptions": {
+		"module": "preserve",
+		"declaration": true,
+		"removeComments": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"allowSyntheticDefaultImports": true,
+		"target": "esnext",
+		"sourceMap": true,
+		"outDir": "./dist",
+		"baseUrl": "./",
+		"paths": {
+			"g/*": ["./src/globals/*"],
+			"@/*": ["./src/*"],
+			"~/*": ["./*"],
+			"t/*": ["./test/*"]
+		},
+		"incremental": true,
+		"skipLibCheck": true,
+		"strictNullChecks": true,
+		"forceConsistentCasingInFileNames": true,
+		"noImplicitAny": false,
+		"strictBindCallApply": false,
+		"noFallthroughCasesInSwitch": false,
+		"emitDeclarationOnly": true,
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"allowJs": true,
+		"strict": false,
+		"noEmit": true,
+		"isolatedModules": true,
+		"jsx": "preserve",
+		"plugins": [
+			{
+				"name": "next"
+			}
+		]
+	},
+	"include": [
+		"next-env.d.ts",
+		"**/*.ts",
+		".next/types/**/*.ts",
+		"src/types/env.d.ts"
+	],
+	"exclude": ["node_modules"]
+}
