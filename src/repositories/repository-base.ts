@@ -1,5 +1,5 @@
 import errorHandler from "@/errors";
 
 export class RepositoryBase {
-	public errors = errorHandler;
+	public readonly errors = errorHandler;
 }

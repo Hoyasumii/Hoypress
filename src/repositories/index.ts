@@ -1,1 +1,1 @@
-export type { UsersRepositoryInterface } from "./users-repository.interface";
+export type { UsersRepositoryBase } from "./users-repository.base";

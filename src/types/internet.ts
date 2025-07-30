@@ -25,6 +25,7 @@ abstract class Service<
 }
 
 type DTO = null;
+// DTO também precisa ter um docs
 
 abstract class Repository {
 	protected errors: Record<string, ApplicationError>;

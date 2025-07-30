@@ -1,4 +1,5 @@
 import { BadRequestError } from "./bad-request.error";
+import { ExistentUserError } from "./existent-user.error";
 import { ResourceNotFoundError } from "./resource-not-found.error";
 import { UnauthorizedRequestError } from "./unauthorized-request.error";
 
@@ -11,4 +12,5 @@ export default {
 	UnauthorizedRequestError: () => new UnauthorizedRequestError(),
 	BadRequestError: () => new BadRequestError(),
 	ResourceNotFoundError: () => new ResourceNotFoundError(),
+	ExistentUserError: () => new ExistentUserError(),
 } as const;

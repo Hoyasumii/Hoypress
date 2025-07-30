@@ -1,16 +1,27 @@
-import type { uuid } from "@/dtos";
-import { UsersRepositoryBase } from "../users-repository.interface";
-import { CreateUserDTO } from "@/dtos/users";
-import { BadRequestError } from "@/errors";
+import type { email, uuid } from "@/dtos";
+import { UsersRepositoryBase } from "../users-repository.base";
+import type { CreateUserDTO } from "@/dtos/users";
+import { prisma } from "@/utils";
+import type { GetUserDTO } from "@/dtos/users/get-user.dto";
 
 export class UsersRepository extends UsersRepositoryBase {
-  async create(data: CreateUserDTO): Promise<uuid> {
-      const {success} = CreateUserDTO.safeParse(data);
+	async create(data: CreateUserDTO): Promise<uuid> {
+		const newUser = await prisma.user.create({ data });
 
-      throw this.errors.BadRequestError();
+		return newUser.id;
+	}
 
+	async getDataById(id: uuid): Promise<GetUserDTO | null> {
+		const targetUser = await prisma.user.findUnique({ where: { id } });
 
-  }
+		return targetUser;
+	}
+
+	async getPasswordByEmail(email: email): Promise<string | null> {
+		const targetUser = await prisma.user.findUnique({ where: { email } });
+
+		if (!targetUser) return null;
+
+		return targetUser.password;
+	}
 }
-
-await new UsersRepository().create({ email: "alanreisanjo@gmail", password: "12131nkjfsabkdjab" })
