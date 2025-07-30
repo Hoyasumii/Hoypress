@@ -1,6 +1,7 @@
 import { viewsPath } from "@/constants";
 import { EJSRR, paramsWithPartials } from "@/utils";
 import { renderFile } from "ejs";
+import { redirect } from "next/navigation";
 import type { NextRequest } from "next/server";
 
 export async function GET() {
@@ -18,9 +19,10 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
-  const formData = await request.formData();
+	const formData = await request.formData();
 
-  const email = formData.get("email");
-  const password = formData.get("password");
+	const email = formData.get("email");
+	const password = formData.get("password");
 
+	return redirect("/users/login");
 }

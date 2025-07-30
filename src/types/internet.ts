@@ -1,7 +1,6 @@
 type ControllerFactory<Service> = (service: Service) => Controller<Service>;
 
-type Module<RepositoryType, ServiceType> = {
-	repository: RepositoryType;
+type Module<RepositoryType extends Repository, ServiceType> = {
 	factory: ServiceFactory<RepositoryType, ServiceType>;
 	controller: ControllerFactory<ServiceType>;
 	docs: unknown;
