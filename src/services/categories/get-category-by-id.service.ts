@@ -9,13 +9,36 @@ export class GetCategoryByIdService
 	constructor(private repository: CategoryRepositoryBase) {}
 
 	async run(data: uuid): Promise<GetCategoryDTO> {
+		if (!this.repository.cache) {
+			const { success } = uuid.safeParse(data);
+
+			if (!success) throw this.repository.errors.BadRequestError();
+
+			const categoryContent = await this.repository.findById(data);
+
+			if (!categoryContent)
+				throw this.repository.errors.ResourceNotFoundError();
+
+			return categoryContent;
+		}
+
 		const { success } = uuid.safeParse(data);
 
 		if (!success) throw this.repository.errors.BadRequestError();
 
+		const cachedResponse = await this.repository.cache.get<GetCategoryDTO>(
+			`category-${data}`,
+		);
+
+		if (cachedResponse) return cachedResponse;
+
 		const categoryContent = await this.repository.findById(data);
 
 		if (!categoryContent) throw this.repository.errors.ResourceNotFoundError();
+
+		await this.repository.cache.set(`category-${data}`, categoryContent, {
+			ex: 60 * 60,
+		});
 
 		return categoryContent;
 	}

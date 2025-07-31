@@ -1,7 +1,6 @@
 import type { GetCategoryDTO } from "@/dtos/categories";
 import type { CategoryRepositoryBase } from "@/repositories";
 import type { Service } from "@/services";
-import { redis } from "@/utils";
 
 export class FindAllCategoriesService
 	implements Service<CategoryRepositoryBase, void, Array<GetCategoryDTO>>
@@ -9,22 +8,33 @@ export class FindAllCategoriesService
 	constructor(private repository: CategoryRepositoryBase) {}
 
 	async run(): Promise<Array<GetCategoryDTO>> {
-		const cachedResponse = await redis.get<Array<GetCategoryDTO>>(
-			"find-all-categories-service-response",
-		);
+		if (!this.repository.cache) {
+			const response = await this.repository.findAll(
+				{ id: "desc" },
+				{ id: true, title: true, slug: true },
+			);
 
-		if (cachedResponse) {
-			return cachedResponse;
+			return response;
 		}
+
+		const cachedResponse = await this.repository.cache.get<
+			Array<GetCategoryDTO>
+		>("find-all-categories-service-response");
+
+		if (cachedResponse) return cachedResponse;
 
 		const response = await this.repository.findAll(
 			{ id: "desc" },
 			{ id: true, title: true, slug: true },
 		);
 
-		await redis.set("find-all-categories-service-response", response, {
-			ex: 60 * 3,
-		});
+		await this.repository.cache.set(
+			"find-all-categories-service-response",
+			response,
+			{
+				ex: 60 * 3,
+			},
+		);
 
 		return response;
 	}
