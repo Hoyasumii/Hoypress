@@ -4,7 +4,6 @@ import { renderFile } from "ejs";
 import type { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
-	// const searchParams = new URL(request.url).searchParams;
 
 	const pageContent = await renderFile(
 		`${viewsPath}/index.ejs`,
@@ -13,12 +12,10 @@ export async function GET(request: NextRequest) {
 			currentPage: 1,
 			numberOfPages: 1,
 			title: "Página Inicial",
-			isAuthenticated: false,
+			isAuthenticated: Boolean(request.cookies.get("access-token")),
 			categories: [],
 		}),
 	);
-
-	// const page = searchParams.get("page");
 
 	return EJSRR(pageContent);
 }

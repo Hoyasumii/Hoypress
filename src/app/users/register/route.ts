@@ -1,4 +1,5 @@
 import { viewsPath } from "@/constants";
+import { makeCreateUserFactory } from "@/factories/users";
 import { EJSRR, paramsWithPartials } from "@/utils";
 import { renderFile } from "ejs";
 import { redirect } from "next/navigation";
@@ -19,10 +20,14 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
+	const service = makeCreateUserFactory();
+
 	const formData = await request.formData();
 
-	const email = formData.get("email");
-	const password = formData.get("password");
+	const email = formData.get("email")!;
+	const password = formData.get("password")!;
 
-	return redirect("/users/login");
+	await service.run({ email: email.toString(), password: password.toString() });
+
+	redirect("/users/login");
 }

@@ -24,4 +24,10 @@ export class UsersRepository extends UsersRepositoryBase {
 
 		return targetUser.password;
 	}
+
+	async getIdByEmail(email: email): Promise<string | null> {
+		const targetUser = await prisma.user.findUnique({ where: { email } });
+
+		return targetUser?.id || null;
+	}
 }

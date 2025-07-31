@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirecting...</title>
+
+  <style>
+    .button {
+      display: none;
+    }
+  </style>
+
+</head>
+
+<body>
+  <button class="button" id="button"></button>
+
+  <script defer>
+    const button = document.getElementById("button");
+
+    button.addEventListener("click", () => {
+      window.location.pathname = "/";
+    })
+
+    button.click();
+  </script>
+</body>
+
+</html>

@@ -1,3 +1,4 @@
+// Criar um sistema de plugin para injetar serviços e evitar o acoplamento
 type ControllerFactory<Service> = (service: Service) => Controller<Service>;
 
 type Module<RepositoryType extends Repository, ServiceType> = {

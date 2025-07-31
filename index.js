@@ -25,6 +25,8 @@ app.use(session({
 app.use(bodyParser.urlencoded({extended: false})); // Para aceitar dados de formulários
 app.use(bodyParser.json()); // Para aceitar dados de JSON
 
+// TODO: Colocar no middleware.ts uma feature para já deixar registrado as categorias
+
 app.use((req, res, next) => { // Middleware global que pega todas as categorias e as coloca em res.locals.categories; { title: "title", slug: "slug" }
     Categories.findAll({ raw: true }).then(categories => {
         let categoriesObj = categories.reduce((acc, category) => {
