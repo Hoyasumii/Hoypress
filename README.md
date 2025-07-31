@@ -1,4 +1,4 @@
-[nodejs, nextjs, ts, prisma, supabase, postgresql, html, css, js, bootstrap]
+[nodejs, nextjs, ts, prisma, supabase, postgresql, redis, html, css, js, bootstrap]
 
 # Hoypress
 

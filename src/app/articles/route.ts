@@ -8,9 +8,9 @@ export async function GET(request: NextRequest) {
 		`${viewsPath}/articles/index.ejs`,
 		paramsWithPartials({
 			data: [],
-			isAuthenticated: true,
+			isAuthenticated: Boolean(request.cookies.get("access-token")),
 			hasSlug: false,
-      title: "Artigos",
+			title: "Artigos",
 			categories: [],
 		}),
 	);

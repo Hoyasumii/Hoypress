@@ -15,7 +15,7 @@
                         <a class="nav-link" aria-current="page" href="/categories">Categorias</a>
                     </li>
                 <% } else { %>
-                    <% categories.slice(0,5).forEach(category => { %>
+                    <% categories.forEach(category => { %>
                         <li class="nav-item">
                             <a href="/categories/read/<%= category.slug %>" class="nav-link"><%= category.title %></a>
                         </li>

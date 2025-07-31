@@ -2,7 +2,8 @@ import { viewsPath } from "@/constants";
 import { makeAuthenticateUserFactory } from "@/factories/users";
 import { EJSRR } from "@/utils";
 import { renderFile } from "ejs";
-import { NextResponse, type NextRequest } from "next/server";
+import { redirect } from "next/navigation";
+import type { NextRequest } from "next/server";
 
 export async function POST(request: NextRequest) {
 	const service = makeAuthenticateUserFactory();
@@ -28,11 +29,10 @@ export async function POST(request: NextRequest) {
 			path: "/",
 			httpOnly: false,
 			secure: false,
-			
 		});
 
 		return response;
 	} catch (_) {
-		return NextResponse.redirect(new URL("/", request.url));
+		return redirect("/users/login");
 	}
 }

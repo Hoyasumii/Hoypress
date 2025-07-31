@@ -10,33 +10,39 @@ datasource db {
 }
 
 model Article {
-  id     String @id @default(uuid())
-  userId String
-  user   User   @relation(fields: [userId], references: [id])
+  id String @id @default(uuid())
 
-  title      String
-  slug       String
-  body       String
-  Category   Category? @relation(fields: [categoryId], references: [id])
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  title     String
+  slug      String
+  body      String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  Category   Category? @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId String?
 
   @@map("articles")
 }
 
 model Category {
-  id       String    @id @default(uuid())
-  title    String
-  slug     String
+  id        String   @id @default(uuid())
+  title     String
+  slug      String
+  createdAt DateTime @default(now()) @map("created_at")
+
   articles Article[]
 
   @@map("categories")
 }
 
 model User {
-  id       String    @id @default(uuid())
-  email    String    @unique
+  id       String @id @default(uuid())
+  email    String @unique
   password String
-  Article  Article[]
+
+  Article Article[]
 
   @@map("users")
 }
