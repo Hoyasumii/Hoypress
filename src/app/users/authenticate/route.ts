@@ -15,11 +15,7 @@ export async function POST(request: NextRequest) {
 	const page = await renderFile(`${viewsPath}/users/login-redirect.ejs`);
 
 	try {
-		const response = new NextResponse(page, {
-			headers: {
-				"Content-Type": "text/html; charset=UTF-8",
-			},
-		});
+		const response = EJSRR(page);
 
 		const userToken = await service.run({
 			email: email.toString(),
@@ -34,12 +30,6 @@ export async function POST(request: NextRequest) {
 			secure: false,
 			
 		});
-
-		// response.cookies.set("access-token", userToken, {
-		// 	expires: 1000 * 60 * 60,
-		// 	path: "/",
-		// 	httpOnly: true
-		// });
 
 		return response;
 	} catch (_) {

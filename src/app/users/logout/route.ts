@@ -1,10 +1,13 @@
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { viewsPath } from "@/constants";
+import { EJSRR } from "@/utils";
+import { renderFile } from "ejs";
 
 export async function GET() {
-	const cookieStore = await cookies();
+	const page = await renderFile(`${viewsPath}/users/login-redirect.ejs`);
 
-	cookieStore.delete("access-token");
+	const response = EJSRR(page);
+	
+	response.cookies.delete("access-token");
 
-	redirect("/");
+	return response;
 }
