@@ -36,3 +36,5 @@ export abstract class CategoryRepositoryBase extends RepositoryBase {
 // TODO: Colocar Redis no Portfólio + Ajeitar o Mongo para dar Timeout caso não tenha chamada durante um tempo
 // TODO: Colocar Redis no Encurtai
 // TODO: Colocar Redis no Perguntas e Respostas
+// TODO: Fazer Ordenação das Skills alfabeticamente no Portfólio
+// TODO: Facilitar a postagem de datas na API do Portfólio

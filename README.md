@@ -1,4 +1,5 @@
 [nodejs, nextjs, ts, prisma, supabase, postgresql, redis, html, css, js, bootstrap]
+- [ ] TODO: Trocar o porte do SkillIcons pelo SVGL: https://github.com/pheralb/svgl/blob/main/src/data/svgs.ts
 
 # Hoypress
 
@@ -27,3 +28,4 @@
 - O projeto inicialmente foi divertido de se fazer, tanto que investi muito em um front-end que fosse diferente do que o professor estava ensinando, entretanto, quando eu precisei fazer uma pausa no desenvolvimento para realizar o [Teste Fullstack - Medlynx](https://github.com/Hoyasumii/teste-fullstack-medlynx) e retomei ao projeto, senti a ineficiência de usar o padrão MVC em projetos, pois as engines de templates de HTML não são tão eficientes quanto um framework ou biblioteca voltada ao desenvolvimento web atual. Como eu posso dizer, elas limitam a dinamicidade de um site. Por exemplo, ao enviar os dados da View para um script JavaScript, você vai sentir o quão esquisito é. Eu imagino que deva haver maneiras mais tranquilas de fazer isso, mas usando essas engines como EJS, vai ser um pouco chato.
 - E durante essa minha implicação com o MVC que me veio a ideia de utilizar o front-end escrito em React.js e o back-end em Express.js, mas pelo fato do projeto já estar quase 100% concluído, apenas precisando de algumas correções, decidi não fazer essa mudança, mas em projetos futuros, provavelmente farei deste método.
 - Apesar de eu estar um pouco desgostoso com o padrão MVC, eu ainda acredito que uma pessoa que ainda esteja aprendendo programação deva saber, pois a pessoa vai acabar entendendo como funciona o fluxo de dados de um projeto web, e isso é muito importante, principalmente quando ela começar a criar e consumir APIs.
+
