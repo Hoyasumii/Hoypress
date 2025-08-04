@@ -8,15 +8,6 @@ export class FindAllCategoriesService
 	constructor(private repository: CategoryRepositoryBase) {}
 
 	async run(): Promise<Array<GetCategoryDTO>> {
-		if (!this.repository.cache) {
-			const response = await this.repository.findAll(
-				{ id: "desc" },
-				{ id: true, title: true, slug: true },
-			);
-
-			return response;
-		}
-
 		const cachedResponse = await this.repository.cache.get<
 			Array<GetCategoryDTO>
 		>("find-all-categories-service-response");

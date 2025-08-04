@@ -1,5 +1,4 @@
 import type { uuid } from "@/dtos";
-import { RepositoryBase } from "./repository-base";
 import type {
 	CreateCategoryDTO,
 	GetCategoryDTO,
@@ -7,8 +6,9 @@ import type {
 } from "@/dtos/categories";
 import type { Prisma } from "~/generated/prisma";
 import type { DefaultArgs } from "~/generated/prisma/runtime/library";
+import { CacheableRepositoryBase } from "./cacheable-repository-base";
 
-export abstract class CategoryRepositoryBase extends RepositoryBase {
+export abstract class CategoryRepositoryBase extends CacheableRepositoryBase {
 	abstract create(data: CreateCategoryDTO): Promise<void>;
 	abstract findById(id: uuid): Promise<GetCategoryDTO | null>;
 	abstract findAll(
@@ -29,7 +29,7 @@ export abstract class CategoryRepositoryBase extends RepositoryBase {
 		content: GetTitleDTO,
 		query: Prisma.CategoryWhereInput,
 	): Promise<number>;
-  abstract deleteById(id: uuid): Promise<boolean>;
+	abstract deleteById(id: uuid): Promise<boolean>;
 }
 // TODO: Esse trecho do `partials/navbar.ejs` categories.slice(0,5) é pra ser coisa de servidor.
 // TODO: Colocar o meu Portfólio em monorepo

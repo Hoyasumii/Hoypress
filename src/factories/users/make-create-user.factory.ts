@@ -6,3 +6,18 @@ export function makeCreateUserFactory(): CreateUserService {
 
 	return new CreateUserService(repo);
 }
+
+
+/* 
+
+Repo -> error handler
+
+Repo -> cacheable?
+
+RepositoryBase -> abstract class
+CacheableRepositoryBase extends RepositoryBase
+-> public CacheBase
+
+RedisCache
+
+*/

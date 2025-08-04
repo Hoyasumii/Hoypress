@@ -27,7 +27,14 @@ export async function POST(request: NextRequest) {
 	const email = formData.get("email")!;
 	const password = formData.get("password")!;
 
-	await service.run({ email: email.toString(), password: password.toString() });
+	try {
+		await service.run({
+			email: email.toString(),
+			password: password.toString(),
+		});
 
-	redirect("/users/login");
+		redirect("/users/login");
+	} catch (_) {
+		redirect("/users/register");
+	}
 }
