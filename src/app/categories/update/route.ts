@@ -3,6 +3,7 @@ import { NextResponse, type NextRequest } from "next/server";
 
 // TODO: Adicionar o Authenticate Middleware
 export async function POST(request: NextRequest) {
+	const url = new URL(request.url).origin;
 	const service = makeUpdateCategoryFactory();
 	const formData = await request.formData();
 
@@ -16,5 +17,5 @@ export async function POST(request: NextRequest) {
 		},
 	);
 
-  return NextResponse.redirect("/categories");
+  return NextResponse.redirect(`${url}/categories`);
 }

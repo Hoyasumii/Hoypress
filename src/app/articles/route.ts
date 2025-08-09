@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
 			isAuthenticated: Boolean(request.cookies.get("access-token")),
 			hasSlug: false,
 			title: "Artigos",
-			categories: [],
+			categories: JSON.parse(request.cookies.get("categories")!.value),
 		}),
 	);
 

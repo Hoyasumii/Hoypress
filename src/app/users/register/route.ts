@@ -12,7 +12,7 @@ export async function GET() {
 			register: true,
 			title: "Crie a sua Conta",
 			isAuthenticated: false,
-			categories: [],
+			categories: JSON.parse(request.cookies.get("categories")!.value),
 		}),
 	);
 

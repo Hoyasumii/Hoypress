@@ -1,6 +1,6 @@
 import { viewsPath } from "@/constants";
 import { makeGetCategoryBySlugFactory } from "@/factories/categories";
-import { EJSRR } from "@/utils";
+import { EJSRR, paramsWithPartials } from "@/utils";
 import { renderFile } from "ejs";
 import type { NextRequest } from "next/server";
 
@@ -14,14 +14,14 @@ export async function GET(
 
 	const category = await service.run(slug);
 
-	const page = await renderFile(`${viewsPath}/articles/index.ejs`, {
+	const page = await renderFile(`${viewsPath}/articles/index.ejs`, paramsWithPartials({
 		data: [],
 		slug,
 		hasSlug: true,
 		isAuthenticated: Boolean(request.cookies.get("access-token")),
 		title: category.title,
-		categories: [],
-	});
+		categories: JSON.parse(request.cookies.get("categories")!.value),
+	}));
 
 	return EJSRR(page);
 }

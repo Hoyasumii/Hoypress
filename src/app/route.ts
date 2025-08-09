@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
 			numberOfPages: 1,
 			title: "Página Inicial",
 			isAuthenticated: Boolean(request.cookies.get("access-token")),
-			categories: [],
+			categories: JSON.parse(request.cookies.get("categories")!.value),
 		}),
 	);
 
